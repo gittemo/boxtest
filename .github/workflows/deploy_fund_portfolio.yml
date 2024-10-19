@@ -1,0 +1,50 @@
+name: Deploy Fund Portfolio
+
+on:
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  deploy_fund_portfolio:
+    name: Deploy Fund Portfolio
+    runs-on: self-hosted portfolio-app-runner  # Matches the label on your runner
+
+    env:
+      DIRECTORY: "cmd/portfolio/fund"
+      SYSTEM_IMAGE: "portfolio_fund_image"
+      CONTAINER_NAME: "portfolio-fund"
+      PORT_MAP: "80:80"
+      PORT: "80"
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Stop Existing Container
+        run: docker stop ${{ env.CONTAINER_NAME }} || true
+
+      - name: Prune Docker System
+        run: docker system prune -a -f
+
+      - name: Build Docker Image
+        run: |
+          docker build \
+            --build-arg DIRECTORY=${{ env.DIRECTORY }} \
+            --build-arg DFLOW_ACCESS_TOKEN_USR=${{ secrets.DFLOW_ACCESS_TOKEN_USR }} \
+            --build-arg DFLOW_ACCESS_TOKEN_PWD=${{ secrets.DFLOW_ACCESS_TOKEN_PWD }} \
+            -f ${{ env.DIRECTORY }}/Dockerfile \
+            -t ${{ env.SYSTEM_IMAGE }} .
+
+      - name: Prune Containers
+        run: docker container prune -f
+
+      - name: Run Docker Container
+        run: |
+          docker run -d -i \
+            --cpu-shares=4096 \
+            --name ${{ env.CONTAINER_NAME }} \
+            -p ${{ env.PORT_MAP }} \
+            ${{ env.SYSTEM_IMAGE }}
+
+      - name: Prune Docker Images
+        if: always()
+        run: docker image prune -f
