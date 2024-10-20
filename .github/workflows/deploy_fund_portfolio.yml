@@ -4,12 +4,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy_fund_portfolio:
-    name: portfolio-app
+  dflow:
+    name: dflow
     runs-on:
       labels: portfolio-app-runner # needs to match ${stackname}-runner
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: dflow-deploy
         uses: "./.github/actions/dflow-deploy"
         with:
