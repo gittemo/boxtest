@@ -30,8 +30,6 @@ runs:
       run: |
         docker build \
           --build-arg DIRECTORY=${{ inputs.directory }} \
-          --build-arg DFLOW_ACCESS_TOKEN_USR=${{ secrets.DFLOW_ACCESS_TOKEN_USR }} \
-          --build-arg DFLOW_ACCESS_TOKEN_PWD=${{ secrets.DFLOW_ACCESS_TOKEN_PWD }} \
           -f ${{ inputs.directory }}/Dockerfile \
           -t ${{ inputs.system_image }} .
 

@@ -4,25 +4,22 @@ on:
   workflow_dispatch:
     inputs:
       logLevel:
-        description: 'Log level'
+        description: 'Runner'
         required: true
         default: 'information'
         type: choice
         options:
-          - information
+          - portfolio-app-runner
           - debug
           - warning
           - critical
-      tags:
-        description: 'Purpose of Run This Workflow?'
-        required: true
-        type: string
 
 jobs:
   deploy_fund_portfolio:
     name: portfolio-app
     runs-on:
-      labels: portfolio-app-runner # needs to match ${stackname}-runner
+      # labels: portfolio-app-runner # needs to match ${stackname}-runner
+      labels: ${{ inputs.tags }}
 
     steps:
       - name: dflow-deploy
