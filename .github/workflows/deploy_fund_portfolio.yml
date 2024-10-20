@@ -1,13 +1,13 @@
 name: Deploy Fund Portfolio
 
 on:
-  workflow_dispatch:  # Allows manual triggering
+  workflow_dispatch: # Allows manual triggering
 
 jobs:
   deploy_fund_portfolio:
     name: Deploy Fund Portfolio
     runs-on:  
-      labels: portfolio-app-runner  # Matches the label on your runner
+      labels: portfolio-app2-runner # needs to match ${stackname}-runner
 
     env:
       DIRECTORY: "cmd/portfolio/fund"
@@ -47,5 +47,4 @@ jobs:
             ${{ env.SYSTEM_IMAGE }}
 
       - name: Prune Docker Images
-        if: always()
         run: docker image prune -f
