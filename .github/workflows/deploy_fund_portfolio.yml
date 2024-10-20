@@ -2,29 +2,17 @@ name: portfolio-app
 
 on:
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Runner'
-        required: true
-        default: 'information'
-        type: choice
-        options:
-          - portfolio-app-runner
-          - debug
-          - warning
-          - critical
 
 jobs:
   deploy_fund_portfolio:
     name: portfolio-app
     runs-on:
-      # labels: portfolio-app-runner # needs to match ${stackname}-runner
-      labels: ${{ inputs.tags }}
+      labels: portfolio-app-runner # needs to match ${stackname}-runner
 
     steps:
       - name: dflow-deploy
         uses: "/.github/actions/dflow-deploy"
         with:
           directory: "cmd/portfolio/fund"
-          name: ${{ env.JOB_NAME }}
+          name: ${{ job.name }}
           port_map: "80:80"
