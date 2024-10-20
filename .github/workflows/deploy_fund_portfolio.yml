@@ -23,9 +23,8 @@ jobs:
 
     steps:
       - name: dflow-deploy
-        uses: ../actions/dflow-deploy
+        uses: "../actions/dflow-deploy"
         with:
           directory: "cmd/portfolio/fund"
-          system_image: "portfolio_fund_image"
-          container_name: "portfolio-fund"
+          name: ${{ env.JOB_NAME }}
           port_map: "80:80"

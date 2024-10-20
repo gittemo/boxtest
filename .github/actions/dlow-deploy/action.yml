@@ -21,7 +21,7 @@ runs:
       uses: actions/checkout@v4
 
     - name: Stop Existing Container
-      run: docker stop ${{ inputs.container_name }} || true
+      run: docker stop ${{ inputs.name }} || true
 
     - name: Prune Docker System
       run: docker system prune -a -f
@@ -31,7 +31,7 @@ runs:
         docker build \
           --build-arg DIRECTORY=${{ inputs.directory }} \
           -f ${{ inputs.directory }}/Dockerfile \
-          -t ${{ inputs.system_image }} .
+          -t ${{ inputs.name }} .
 
     - name: Prune Containers
       run: docker container prune -f
@@ -40,9 +40,9 @@ runs:
       run: |
         docker run -d -i \
           --cpu-shares=4096 \
-          --name ${{ inputs.container_name }} \
+          --name ${{ inputs.name }} \
           -p ${{ inputs.port_map }} \
-          ${{ inputs.system_image }}
+          ${{ inputs.name }}
 
     - name: Prune Docker Images
       run: docker image prune -f
