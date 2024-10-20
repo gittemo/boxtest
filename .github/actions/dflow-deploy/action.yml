@@ -15,12 +15,15 @@ runs:
   using: "composite"
   steps:
     - name: Stop Existing Container
+      shell: bash
       run: docker stop ${{ inputs.name }} || true
 
     - name: Prune Docker System
+      shell: bash
       run: docker system prune -a -f
 
     - name: Build Docker Image
+      shell: bash
       run: |
         docker build \
           --build-arg DIRECTORY=${{ inputs.directory }} \
@@ -28,9 +31,11 @@ runs:
           -t ${{ inputs.name }} .
 
     - name: Prune Containers
+      shell: bash
       run: docker container prune -f
 
     - name: Run Docker Container
+      shell: bash
       run: |
         docker run -d -i \
           --cpu-shares=4096 \
@@ -39,4 +44,5 @@ runs:
           ${{ inputs.name }}
 
     - name: Prune Docker Images
+      shell: bash
       run: docker image prune -f
