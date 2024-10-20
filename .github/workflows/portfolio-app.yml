@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy_fund_portfolio:
-    name: dflow-deploy
+  portfolio-app:
+    name: portfolio-app
     runs-on:
       labels: portfolio-app-runner # needs to match ${stackname}-runner
 
