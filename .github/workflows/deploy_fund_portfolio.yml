@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: dflow-deploy
-        uses: ./dflow-deploy
+        uses: ../actions/dflow-deploy
         with:
           directory: "cmd/portfolio/fund"
           system_image: "portfolio_fund_image"
