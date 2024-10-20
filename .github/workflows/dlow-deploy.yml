@@ -1,0 +1,50 @@
+name: Docker Build and Deploy
+
+inputs:
+  directory:
+    description: 'Directory path'
+    required: true
+  system_image:
+    description: 'System image name'
+    required: true
+  container_name:
+    description: 'Container name'
+    required: true
+  port_map:
+    description: 'Port mapping'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Stop Existing Container
+      run: docker stop ${{ inputs.container_name }} || true
+
+    - name: Prune Docker System
+      run: docker system prune -a -f
+
+    - name: Build Docker Image
+      run: |
+        docker build \
+          --build-arg DIRECTORY=${{ inputs.directory }} \
+          --build-arg DFLOW_ACCESS_TOKEN_USR=${{ secrets.DFLOW_ACCESS_TOKEN_USR }} \
+          --build-arg DFLOW_ACCESS_TOKEN_PWD=${{ secrets.DFLOW_ACCESS_TOKEN_PWD }} \
+          -f ${{ inputs.directory }}/Dockerfile \
+          -t ${{ inputs.system_image }} .
+
+    - name: Prune Containers
+      run: docker container prune -f
+
+    - name: Run Docker Container
+      run: |
+        docker run -d -i \
+          --cpu-shares=4096 \
+          --name ${{ inputs.container_name }} \
+          -p ${{ inputs.port_map }} \
+          ${{ inputs.system_image }}
+
+    - name: Prune Docker Images
+      run: docker image prune -f
