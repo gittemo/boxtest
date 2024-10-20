@@ -1,4 +1,5 @@
 name: portfolio-app
+run-name: ${{ github.event.workflow_dispatch.head_commit.message }}
 
 on:
   workflow_dispatch:
