@@ -1,17 +1,17 @@
 name: portfolio-app
 
 on:
-  workflow_dispatch: # manual only
+  workflow_dispatch:
 
 jobs:
-  dflow-deploy:
+  deploy_fund_portfolio:
     name: dflow-deploy
     runs-on:
       labels: portfolio-app-runner # needs to match ${stackname}-runner
 
     steps:
       - name: dflow-deploy
-        uses: ../dflow-deploy
+        uses: ./dflow-deploy
         with:
           directory: "cmd/portfolio/fund"
           system_image: "portfolio_fund_image"
