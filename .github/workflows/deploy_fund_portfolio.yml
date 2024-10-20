@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: ls
-        run: ls ./.github
+        run: ls ./.github/actions/dflow-deploy
       - name: dflow-deploy
         uses: "./.github/actions/dflow-deploy"
         with:
