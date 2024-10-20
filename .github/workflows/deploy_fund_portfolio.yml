@@ -6,7 +6,8 @@ on:
 jobs:
   deploy_fund_portfolio:
     name: Deploy Fund Portfolio
-    runs-on: self-hosted portfolio-app-runner  # Matches the label on your runner
+    runs-on:  
+      labels: portfolio-app-runner  # Matches the label on your runner
 
     env:
       DIRECTORY: "cmd/portfolio/fund"
