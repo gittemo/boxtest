@@ -1,7 +1,7 @@
 name: portfolio-app
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # manual only
 
 jobs:
   dflow-deploy:
