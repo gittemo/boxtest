@@ -4,14 +4,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy_fund_portfolio:
-    name: portfolio-app
+  dflow-deploy:
+    name: dflow-deploy
     runs-on:
       labels: portfolio-app-runner # needs to match ${stackname}-runner
 
     steps:
       - name: dflow-deploy
-        uses: ./dflow-deploy
+        uses: ../dflow-deploy
         with:
           directory: "cmd/portfolio/fund"
           system_image: "portfolio_fund_image"
