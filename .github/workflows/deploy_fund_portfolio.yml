@@ -7,7 +7,7 @@ jobs:
   deploy_fund_portfolio:
     name: Deploy Fund Portfolio
     runs-on:  
-      labels: portfolio-app2-runner # needs to match ${stackname}-runner
+      labels: portfolio-app-runner # needs to match ${stackname}-runner
 
     env:
       DIRECTORY: "cmd/portfolio/fund"
