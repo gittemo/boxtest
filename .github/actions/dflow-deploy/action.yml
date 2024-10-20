@@ -4,11 +4,8 @@ inputs:
   directory:
     description: 'Directory path'
     required: true
-  system_image:
-    description: 'System image name'
-    required: true
-  container_name:
-    description: 'Container name'
+  name:
+    description: 'Name of app'
     required: true
   port_map:
     description: 'Port mapping'
