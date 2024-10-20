@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - name: dflow-deploy
-        uses: "../actions/dflow-deploy"
+        uses: "/.github/actions/dflow-deploy"
         with:
           directory: "cmd/portfolio/fund"
           name: ${{ env.JOB_NAME }}
