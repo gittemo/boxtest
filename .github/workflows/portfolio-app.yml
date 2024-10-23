@@ -1,13 +1,22 @@
-name: portfolio-app
-run-name: ${{ github.event.head_commit.message }}
+name: Dflow
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      selected_jobs:
+        description: 'Select jobs to run'
+        required: true
+        type: choice
+        options:
+          - portfolio-app
+          - other-box
 
 jobs:
-  deploy:
+  portfolio-app:
+    if: contains(github.event.inputs.selected_jobs, 'portfolio-app')
     name: deploy
     runs-on:
-      labels: portfolio-app-runner # needs to match ${stackname}-runner
+      labels: portfolio-app-runner
 
     steps:
       - name: Checkout Repository
@@ -17,5 +26,22 @@ jobs:
         uses: "./.github/actions/dflow-deploy"
         with:
           directory: "cmd/portfolio/fund"
-          name: $GITHUB_WORKFLOW
+          name: portfolio-app
+          port_map: "80:80"
+
+  other-box:
+    if: contains(github.event.inputs.selected_jobs, 'other-box')
+    name: deploy
+    runs-on:
+      labels: other-box-runner
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: dflow-deploy
+        uses: "./.github/actions/dflow-deploy"
+        with:
+          directory: "cmd/boxes/other"
+          name: other-box
           port_map: "80:80"
