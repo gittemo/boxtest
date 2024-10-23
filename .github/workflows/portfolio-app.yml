@@ -1,4 +1,4 @@
-name: Dflow
+name: dflow
 
 on:
   workflow_dispatch:
@@ -27,7 +27,7 @@ jobs:
         uses: "./.github/actions/dflow-deploy"
         with:
           directory: "cmd/portfolio/fund"
-          name: portfolio-app
+          name: $GITHUB_JOB
           port_map: "80:80"
 
   other-box:
@@ -43,5 +43,5 @@ jobs:
         uses: "./.github/actions/dflow-deploy"
         with:
           directory: "cmd/boxes/other"
-          name: other-box
+          name: $GITHUB_JOB
           port_map: "80:80"
