@@ -7,11 +7,11 @@ on:
         type: boolean
         required: true
         default: false
-        
-        other-box:
-          type: boolean
-          required: true
-          default: false
+
+      other-box:
+        type: boolean
+        required: true
+        default: false
 
 jobs:
   portfolio-app:
