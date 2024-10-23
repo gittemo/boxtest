@@ -15,10 +15,9 @@ on:
 
 jobs:
   portfolio-app:
-    if: contains(github.event.inputs.selected_jobs, 'portfolio-app')
+    if: ${{ github.event.inputs['portfolio-app'] }}
     name: deploy
-    runs-on:
-      labels: portfolio-app-runner
+    runs-on: portfolio-app-runner
 
     steps:
       - name: Checkout Repository
@@ -32,10 +31,9 @@ jobs:
           port_map: "80:80"
 
   other-box:
-    if: contains(github.event.inputs.selected_jobs, 'other-box')
+    if: ${{ github.event.inputs['other-box'] }}
     name: deploy
-    runs-on:
-      labels: other-box-runner
+    runs-on: other-box-runner
 
     steps:
       - name: Checkout Repository
