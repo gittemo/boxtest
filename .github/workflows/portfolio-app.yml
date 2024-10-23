@@ -3,13 +3,15 @@ name: Dflow
 on:
   workflow_dispatch:
     inputs:
-      selected_jobs:
-        description: 'Select jobs to run'
+      portfolio-app:
+        type: boolean
         required: true
-        type: choice
-        options:
-          - portfolio-app
-          - other-box
+        default: false
+        
+        other-box:
+          type: boolean
+          required: true
+          default: false
 
 jobs:
   portfolio-app:
