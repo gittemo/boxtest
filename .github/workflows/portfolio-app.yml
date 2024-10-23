@@ -15,7 +15,7 @@ on:
 
 jobs:
   portfolio-app:
-    if: ${{ github.event.inputs['portfolio-app'] }}
+    if: inputs.portfolio-app == true
     name: portfolio-app
     runs-on: portfolio-app-runner
 
@@ -31,7 +31,7 @@ jobs:
           port_map: "80:80"
 
   other-box:
-    if: ${{ github.event.inputs['other-box'] }}
+    if: inputs.other-box == true
     name: other-box
     runs-on: other-box-runner
 
