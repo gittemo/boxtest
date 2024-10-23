@@ -16,7 +16,7 @@ on:
 jobs:
   portfolio-app:
     if: ${{ github.event.inputs['portfolio-app'] }}
-    name: deploy
+    name: portfolio-app
     runs-on: portfolio-app-runner
 
     steps:
@@ -32,7 +32,7 @@ jobs:
 
   other-box:
     if: ${{ github.event.inputs['other-box'] }}
-    name: deploy
+    name: other-box
     runs-on: other-box-runner
 
     steps:
